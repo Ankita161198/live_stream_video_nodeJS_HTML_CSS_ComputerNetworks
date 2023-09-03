@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Video Recording Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Raleway");
+:root {
+  --glow-color: hsl(186 100% 69%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  overflow: hidden;
+}
+
+.glowing-btn {
+  position: relative;
+  color: var(--glow-color);
+  cursor: pointer;
+  padding: 0.35em 1em;
+  border: 0.15em solid var(--glow-color);
+  border-radius: 0.45em;
+  background: none;
+  perspective: 2em;
+  font-family: "Raleway", sans-serif;
+  font-size: 2em;
+  font-weight: 900;
+  letter-spacing: 1em;
+
+  -webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  -moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  animation: border-flicker 2s linear infinite;
+}
+
+.glowing-txt {
+  float: left;
+  margin-right: -0.8em;
+  -webkit-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3),
+    0 0 0.45em var(--glow-color);
+  -moz-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3),
+    0 0 0.45em var(--glow-color);
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
+  animation: text-flicker 3s linear infinite;
+}
+
+.faulty-letter {
+  opacity: 0.5;
+  animation: faulty-flicker 2s linear infinite;
+}
+
+.glowing-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.7;
+  filter: blur(1em);
+  transform: translateY(120%) rotateX(95deg) scale(1, 0.35);
+  background: var(--glow-color);
+  pointer-events: none;
+}
+
+.glowing-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -1;
+  background-color: var(--glow-color);
+  box-shadow: 0 0 2em 0.2em var(--glow-color);
+  transition: opacity 100ms linear;
+}
+
+.glowing-btn:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: none;
+  animation: none;
+}
+
+.glowing-btn:hover .glowing-txt {
+  animation: none;
+}
+
+.glowing-btn:hover .faulty-letter {
+  animation: none;
+  text-shadow: none;
+  opacity: 1;
+}
+
+.glowing-btn:hover:before {
+  filter: blur(1.5em);
+  opacity: 1;
+}
+
+.glowing-btn:hover:after {
+  opacity: 1;
+}
+
+@keyframes faulty-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  2% {
+    opacity: 0.1;
+  }
+  4% {
+    opacity: 0.5;
+  }
+  19% {
+    opacity: 0.5;
+  }
+  21% {
+    opacity: 0.1;
+  }
+  23% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  83% {
+    opacity: 0.4;
+  }
+
+  87% {
+    opacity: 1;
+  }
+}
+
+@keyframes text-flicker {
+  0% {
+    opacity: 0.1;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  8% {
+    opacity: 0.1;
+  }
+
+  9% {
+    opacity: 1;
+  }
+
+  12% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+  72% {
+    opacity: 0.2;
+  }
+
+  77% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes border-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  2% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.1;
+  }
+
+  8% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .glowing-btn{
+    font-size: 1em;
+  }
+}
+
+        body {
+            text-align: "center";
+            color: red;
+            font-size: 1.2em;
+            display: block;
+        }
+    
+        .column {
+            float: left;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+        video {
+            background-color: gray;
+            margin: 6px auto;
+            width: 640px;
+            height: 320px;
+        }
+        .heading{
+            font-size: 20px;
+            font-weight: 600;
+            background-image: conic-gradient(#553c9a 30%, #ee4b2b 40%, #ee4b2b 70%, #00c2cb 80%, #553c9a); 
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            text-align: center;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="column" >
+            <div class="heading">
+                <h1>Video Recorder</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="display-none" id="vid-recorder">
+                <video autoplay id="video"> </video>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <button class='glowing-btn' id="record">
+                <span class='glowing-txt'>R<span class='faulty-letter'>E</span>CORD</span>
+            </button>
+            <button class='glowing-btn' id="stop" disabled>
+                <span class='glowing-txt'>S<span class='faulty-letter'>T</span>OP</span>
+            </button>
+        </div>
+    </div>
+    <script>
+        const recordBtn = document.getElementById('record');
+        const stopBtn = document.getElementById('stop');
+        const video = document.getElementById('video');
+        let mediaRecorder;
+        let chunks = [];
+        let allChunks=[];
+        let segmentIndex = 1;
+        let recording = false;
+        let intervalId;
+        const sendSegment = () => {
+            const formData = new FormData();
+            const blob = new Blob(chunks, { type: 'video/mp4' });
+            let segmentName = `segment${segmentIndex}.mp4`
+            formData.append('filename', segmentName)
+            formData.append('video', blob);
+            formData.append('videoId', "test");
+            console.log(blob);
+            console.log(formData);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/uploadVideo', true);
+            xhr.send(formData);
+            chunks = [];
+            segmentIndex++;
+        };
+
+        recordBtn.onclick = async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 }, audio: true });
+                video.srcObject = stream;
+                mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+                mediaRecorder.start();
+                recording = true;
+
+                mediaRecorder.ondataavailable = e => {
+                    chunks.push(e.data);
+                    allChunks.push(e.data);
+                    if (chunks.length >= 90) { // 3 seconds of video at 30fps 
+                        console.log('chunks: ', chunks);
+                        sendSegment();
+                    }
+                };
+            
+                stopBtn.onclick = () => {
+                    clearInterval(intervalId); // clear the interval when you stop recording 
+                    mediaRecorder.stop();
+                    recording = false;
+                    if (chunks.length > 0) {
+                        sendSegment();
+                    }
+                    recordBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    video.pause();
+                    video.srcObject = null;
+                };
+                          
+                setTimeout(() => {
+                    if (recording) {
+                        intervalId = setInterval(() => {
+                            if (recording) {
+                                mediaRecorder.stop();
+                                sendSegment();
+                                mediaRecorder.start();
+                            }
+                        }, 3000);
+                    }
+                }, 3000);
+                recordBtn.disabled = true;
+                stopBtn.disabled = false;
+            } catch (err) {
+                console.error(err);
+            }
+        }; 
+    </script>
+</body>
+</html>
