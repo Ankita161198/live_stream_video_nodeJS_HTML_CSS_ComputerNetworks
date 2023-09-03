@@ -1,5 +1,4 @@
-//Team Members:
-//Purvesh Shailesh Sakhiya(student Id:4022354) and Ankita Shinde(Student Id:40230690)
+
 
 Library Requirements:
 mysql for database operations
